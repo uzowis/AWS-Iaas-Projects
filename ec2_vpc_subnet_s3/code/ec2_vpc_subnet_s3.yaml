@@ -6,7 +6,7 @@ Description:
 
 
 
-Resources:
+Resources: # Resources to be provisioned when we create/deploy cloudformation stack
   demoS3Bucket: #Logical ID
     Type: AWS::S3::Bucket
     Properties:
@@ -34,6 +34,15 @@ Resources:
         - Key : project
           Value : Demo Project
 
+  demoSubnet: #Logical ID for demoVPC Subnet
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: !Ref
+      VpcId: !Ref
+      Tags: 
+        - Key : project
+          Value : Demo Project
+  
 
 
 
