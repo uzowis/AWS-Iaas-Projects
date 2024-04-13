@@ -4,9 +4,9 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description:
   Provision AWS architecture that has ec2, vpc, s3 and subnet
 
-#PARAMETER
+#PARAMETERS
 Parameters: # Here we can have dynamic values/properties which are referenced in other sections of the code.
-  InstanceTypeParameter: #Logical ID for the instancetype
+  InstanceTypeParam: #Logical ID for the instancetype
     Type: String
     Default: t2.micro
     AllowedValues:
@@ -61,8 +61,8 @@ Resources: # Resources to be provisioned when we create/deploy cloudformation st
   demoEC2Instance: #Logical ID for my EC2 Instance
     Type: AWS::EC2::Instance
     Properties:
-      ImageId : !Ref 
-      InstanceType : !Ref 
+      ImageId : !Ref ImageIdParam
+      InstanceType : !Ref InstanceTypeParam
       Tags: 
         - Key : project
           Value : Demo Project
@@ -70,7 +70,7 @@ Resources: # Resources to be provisioned when we create/deploy cloudformation st
   demoVPC: #Logical ID for my VPC
     Type: AWS::EC2::VPC
     Properties:
-      CidrBlock: !Ref 
+      CidrBlock: !Ref CidrBlockVPCParam
       EnableDnsHostnames: True
       EnableDnsSupport: True
       Tags: 
@@ -80,7 +80,7 @@ Resources: # Resources to be provisioned when we create/deploy cloudformation st
   demoSubnet: #Logical ID for demoVPC Subnet
     Type: AWS::EC2::Subnet
     Properties:
-      CidrBlock: !Ref
+      CidrBlock: !Ref CidrBlockSubnetParam
       VpcId: !Ref demoVPC
       Tags: 
         - Key : project
