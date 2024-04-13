@@ -1,0 +1,39 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description:
+  Provision AWS architecture that has ec2, vpc, s3 and subnet
+
+
+
+Resources:
+  demoS3Bucket: #Logical ID
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: demobucket09019
+      Tags: 
+        - Key : Project
+          Value : IaasProject
+     
+  demoEC2Instance: #Logical ID for my EC2 Instance
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId : !Ref 
+      InstanceType : !Ref 
+      Tags: 
+        - Key : project
+          Value : Demo Project
+
+  demoVPC: #Logical ID for my VPC
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref 
+      EnableDnsHostnames: True
+      EnableDnsSupport: True
+      Tags: 
+        - Key : project
+          Value : Demo Project
+
+
+
+
