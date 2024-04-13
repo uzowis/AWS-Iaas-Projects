@@ -4,13 +4,56 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description:
   Provision AWS architecture that has ec2, vpc, s3 and subnet
 
+#PARAMETER
+Parameters: # Here we can have dynamic values/properties which are referenced in other sections of the code.
+  InstanceTypeParameter: #Logical ID for the instancetype
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.small
+      - m1.large
+    Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
+
+  BuckectNameParam:
+    Type: String
+    Description: Enter the bucket name of choice.
+
+  ImageIdParam: 
+    Type: String
+    Default: ami-0c618421e207909d0
+    AllowedValues:
+      - ami-0c618421e207909d0
+      - ami-0b9932f4918a00c4f
+      - ami-0f00a31129b3158a1
+    Description: Enter the AMI.
+
+  CidrBlockVPCParam: 
+    Type: String
+    Default: 10.0.0.0/16
+    AllowedValues:
+      - 10.0.0.0/16
+      - 10.0.0.0/24
+      - 10.0.0.0/32
+    Description: Enter the CidrBlock for your VPC.
+
+  CidrBlockSubnetParam: 
+    Type: String
+    Default: 10.0.1.0/24
+    AllowedValues:
+      - 10.0.1.0/16
+      - 10.0.1.0/24
+      - 10.0.1.0/32
+    Description: Enter the CidrBlock for your Subnet.
 
 
+
+#RESOURCES
 Resources: # Resources to be provisioned when we create/deploy cloudformation stack
   demoS3Bucket: #Logical ID
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: demobucket09019
+      BucketName: !Ref BuckectNameParam
       Tags: 
         - Key : Project
           Value : IaasProject
@@ -38,7 +81,7 @@ Resources: # Resources to be provisioned when we create/deploy cloudformation st
     Type: AWS::EC2::Subnet
     Properties:
       CidrBlock: !Ref
-      VpcId: !Ref
+      VpcId: !Ref demoVPC
       Tags: 
         - Key : project
           Value : Demo Project
