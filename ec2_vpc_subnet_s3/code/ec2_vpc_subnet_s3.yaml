@@ -4,6 +4,37 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description:
   Provision AWS architecture that has ec2, vpc, s3 and subnet
 
+#METADATA
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:  # Helps you arrange parameters in groups and orderly manner.
+      - 
+        Label: 
+          default: "Network Configuration"
+        Parameters: 
+          - CidrBlockVPCParam
+          - CidrBlockSubnetParam
+      - 
+        Label: 
+          default: "Amazon EC2 Configuration"
+        Parameters: 
+          - InstanceTypeParam
+          - ImageIdParam
+      - 
+        Label: 
+          default: "S3 Bucket Configuration"
+        Parameters: 
+          - BuckectNameParam   
+
+    ParameterLabels: # Use custom labels for your parameters instead of the actual parameter name
+      CidrBlockVPCParam: 
+        default: "What CIDR Block would use for your VPC?"
+
+      BuckectNameParam: 
+        default: "Choose a unique name for your s3 bucket"
+
+
+
 #PARAMETERS
 Parameters: # Here we can have dynamic values/properties which are referenced in other sections of the code.
   InstanceTypeParam: #Logical ID for the instancetype
